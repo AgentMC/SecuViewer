@@ -104,39 +104,8 @@ namespace SecuViewer
             var psw = new Password();
             if (psw.ShowDialog(false, this) != DialogResult.OK)
                 return;
-            var vocabulary = GetVocabulary(psw);
-            var globalHash = (char) vocabulary.GetHashCode() & 0xFFFF;
-            var builder = new StringBuilder();
-            int i = 0, iMax = vocabulary.Length;
-            int overhead = 0;
-            using (var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-            using (var breader = new BinaryReader(reader, Encoding.Default))
-            {
-                while (builder.Length < (reader.Length - overhead*2)/8)
-                {
-                    char x = default(char);
-                    for (int j = 0; j < 4; j++)
-                    {
-                        var z = breader.ReadInt16();
-                        var y = (char) (z ^ vocabulary[i++] ^ globalHash);
-                        x |= y;
-                        if (i == iMax) i = 0;
-                    }
-                    if (x%3 == 0)
-                    {
-                        breader.ReadInt16();
-                        overhead++;
-                    }
-                    if (x%2 == 0)
-                    {
-                        breader.ReadInt16();
-                        overhead++;
-                    }
-                    builder.Append(x);
-                }
-            }
             textBox1.Clear();
-            textBox1.Text = builder.ToString();
+            textBox1.Text = Crypter.Decrypt(psw, path);
             _lastPath = path;
             _saveNeeded = false;
         }
@@ -150,22 +119,6 @@ namespace SecuViewer
                 textBox1.Text = reader.ReadToEnd();
             }
             _lastPath = Ofd.FileName;
-        }
-
-        private static string GetVocabulary(Password psw)
-        {
-            var builder = new StringBuilder();
-            int k = 0;
-            var source = psw.textBox1.Text;
-            for (int j = 0; j < 5; j++)
-            {
-                foreach (var t in source)
-                {
-                    builder.Append((char) (t ^ (0x579D579D >> k++) ^ (source.GetHashCode())));
-                    if (k == 16) k = 0;
-                }
-            }
-            return builder.ToString();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -205,36 +158,7 @@ namespace SecuViewer
             var psw = new Password();
             if (psw.ShowDialog(true, this) != DialogResult.OK)
                 return false;
-            var vocabulary = GetVocabulary(psw);
-            var globalHash = (char) vocabulary.GetHashCode() & 0xFFFF;
-            int i = 0, iMax = vocabulary.Length;
-            var source = textBox1.Text;
-            var rnd = new Random();
-            int overhead = 0;
-            using (var writer = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-            using (var briter = new BinaryWriter(writer, Encoding.Default))
-            {
-                foreach (char t in source)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        var ch = (ushort) ((t & (0xF << (4*j))) ^ vocabulary[i++] ^ globalHash);
-                        briter.Write(ch);
-                        if (i == iMax) i = 0;
-                    }
-                    if (t%3 == 0)
-                    {
-                        briter.Write((short) rnd.Next(1023, 65535));
-                        overhead++;
-                    }
-                    if (t%2 == 0)
-                    {
-                        briter.Write((short) rnd.Next(1023, 65535));
-                        overhead++;
-                    }
-                }
-                writer.SetLength(source.Length*8 + overhead*2);
-            }
+            Crypter.Encrypt(psw, textBox1.Text, path);
             _lastPath = path;
             _saveNeeded = false;
             return true;
@@ -249,8 +173,7 @@ namespace SecuViewer
         {
             e.Cancel = !QuerySaveIfNeeded();
         }
-
-
+        
         private void MainForm_Load(object sender, EventArgs e)
         {
             //settings

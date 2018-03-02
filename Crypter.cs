@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SecuViewer
 {
@@ -11,27 +8,34 @@ namespace SecuViewer
     {
         internal static string Decrypt(Password psw, string path)
         {
-            var builder = new StringBuilder();
             var data = new CryptoData(psw);
-            int overhead = 0;
             using (var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                return Decrypt(data, reader);
+            }
+        }
+
+        internal static string Decrypt(CryptoData data, Stream reader)
+        {
+            int overhead = 0;
+            var builder = new StringBuilder();
             using (var breader = new BinaryReader(reader, Encoding.Default))
             {
-                while (builder.Length < (reader.Length - overhead*2)/8)
+                while (builder.Length < (reader.Length - overhead * 2) / 8)
                 {
                     char x = default(char);
                     for (int j = 0; j < 4; j++)
                     {
                         var z = breader.ReadInt16();
-                        var y = (char) (z ^ data.Next());
+                        var y = (char)(z ^ data.Next());
                         x |= y;
                     }
-                    if (x%3 == 0)
+                    if (x % 3 == 0)
                     {
                         breader.ReadInt16();
                         overhead++;
                     }
-                    if (x%2 == 0)
+                    if (x % 2 == 0)
                     {
                         breader.ReadInt16();
                         overhead++;
@@ -72,7 +76,7 @@ namespace SecuViewer
             }
         }
 
-        private struct CryptoData
+        internal struct CryptoData
         {
             private readonly int _vocabularyLength;
             private readonly int[] _vocabulary;

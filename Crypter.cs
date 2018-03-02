@@ -13,7 +13,7 @@ namespace SecuViewer
         {
             var builder = new StringBuilder();
             var data = new CryptoData(psw);
-            int i = 0, overhead = 0;
+            int overhead = 0;
             using (var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var breader = new BinaryReader(reader, Encoding.Default))
             {
@@ -23,9 +23,8 @@ namespace SecuViewer
                     for (int j = 0; j < 4; j++)
                     {
                         var z = breader.ReadInt16();
-                        var y = (char) (z ^ data.Vocabulary[i++] ^ data.GlobalHash);
+                        var y = (char) (z ^ data.Next() ^ data.GlobalHash);
                         x |= y;
-                        if (i == data.VocabularyLength) i = 0;
                     }
                     if (x%3 == 0)
                     {
@@ -47,7 +46,7 @@ namespace SecuViewer
         {
             var rnd = new Random();
             var data = new CryptoData(psw);
-            int i = 0, overhead = 0;
+            int overhead = 0;
             using (var writer = new FileStream(where, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             using (var briter = new BinaryWriter(writer, Encoding.Default))
             {
@@ -55,9 +54,8 @@ namespace SecuViewer
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        var ch = (ushort)((t & (0xF << (4 * j))) ^ data.Vocabulary[i++] ^ data.GlobalHash);
+                        var ch = (ushort)((t & (0xF << (4 * j))) ^ data.Next() ^ data.GlobalHash);
                         briter.Write(ch);
-                        if (i == data.VocabularyLength) i = 0;
                     }
                     if (t % 3 == 0)
                     {
@@ -76,9 +74,10 @@ namespace SecuViewer
 
         private struct CryptoData
         {
-            public readonly string Vocabulary;
+            private readonly string Vocabulary;
             public readonly int GlobalHash;
-            public readonly int VocabularyLength;
+            private readonly int VocabularyLength;
+            private int _ptr;
 
             public CryptoData(Password psw)
             {
@@ -96,6 +95,14 @@ namespace SecuViewer
                 Vocabulary = builder.ToString();
                 GlobalHash = Vocabulary.GetHashCode() & 0xFFFF;
                 VocabularyLength = Vocabulary.Length;
+                _ptr = 0;
+            }
+
+            public int Next()
+            {
+                var result = Vocabulary[_ptr++];
+                if (_ptr == VocabularyLength) _ptr = 0;
+                return result;
             }
         }
     }

@@ -23,7 +23,7 @@ namespace SecuViewer
                     for (int j = 0; j < 4; j++)
                     {
                         var z = breader.ReadInt16();
-                        var y = (char) (z ^ data.Next() ^ data.GlobalHash);
+                        var y = (char) (z ^ data.Next());
                         x |= y;
                     }
                     if (x%3 == 0)
@@ -54,7 +54,7 @@ namespace SecuViewer
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        var ch = (ushort)((t & (0xF << (4 * j))) ^ data.Next() ^ data.GlobalHash);
+                        var ch = (ushort)((t & (0xF << (4 * j))) ^ data.Next());
                         briter.Write(ch);
                     }
                     if (t % 3 == 0)
@@ -74,35 +74,48 @@ namespace SecuViewer
 
         private struct CryptoData
         {
-            private readonly string Vocabulary;
-            public readonly int GlobalHash;
-            private readonly int VocabularyLength;
+            private readonly int _vocabularyLength;
+            private readonly int[] _vocabulary;
             private int _ptr;
 
             public CryptoData(Password psw)
             {
-                var builder = new StringBuilder();
-                int k = 0;
-                var source = psw.textBox1.Text;
-                for (int j = 0; j < 5; j++)
+                //1. Get voco srting
+                var voco = GetInitialVoco(psw.textBox1.Text);
+                //2. Get GlobalHash
+                var globalHash = voco.GetHashCode() & 0xFFFF;
+                //3. Build hashed array
+                _vocabularyLength = voco.Length;
+                _vocabulary = new int[_vocabularyLength];
+                for (int i = 0; i < _vocabularyLength; i++)
+                {
+                    _vocabulary[i] = voco[i] ^ globalHash;
+                }
+                //4. Init array pointer
+                _ptr = 0;
+            }
+
+            private static string GetInitialVoco(string source)
+            {
+                const int multiplier = 5;
+                var builder = new StringBuilder(source.Length * multiplier);
+                int k = 0, sourceHash = source.GetHashCode();
+                for (int j = 0; j < multiplier; j++)
                 {
                     foreach (var t in source)
                     {
-                        builder.Append((char)(t ^ (0x579D579D >> k++) ^ (source.GetHashCode())));
+                        builder.Append((char) (t ^ (0x579D579D >> k++) ^ sourceHash));
                         if (k == 16) k = 0;
                     }
                 }
-                Vocabulary = builder.ToString();
-                GlobalHash = Vocabulary.GetHashCode() & 0xFFFF;
-                VocabularyLength = Vocabulary.Length;
-                _ptr = 0;
+                var voco = builder.ToString();
+                return voco;
             }
 
             public int Next()
             {
-                var result = Vocabulary[_ptr++];
-                if (_ptr == VocabularyLength) _ptr = 0;
-                return result;
+                if (_ptr == _vocabularyLength) _ptr = 0;
+                return _vocabulary[_ptr++];
             }
         }
     }

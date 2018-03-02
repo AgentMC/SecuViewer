@@ -48,11 +48,18 @@ namespace SecuViewer
 
         internal static void Encrypt(Password psw, string what, string where)
         {
-            var rnd = new Random();
             var data = new CryptoData(psw);
-            int overhead = 0;
             using (var writer = new FileStream(where, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-            using (var briter = new BinaryWriter(writer, Encoding.Default))
+            {
+                Encrypt(data, what, writer);
+            }   
+        }
+
+        internal static void Encrypt(CryptoData data, string what, Stream writer)
+        {
+            int overhead = 0;
+            var rnd = new Random();
+            using (var briter = new BinaryWriter(writer, Encoding.Default, true))
             {
                 foreach (char t in what)
                 {
@@ -72,8 +79,8 @@ namespace SecuViewer
                         overhead++;
                     }
                 }
-                writer.SetLength(what.Length * 8 + overhead * 2);
             }
+            writer.SetLength(what.Length * 8 + overhead * 2);
         }
 
         internal struct CryptoData

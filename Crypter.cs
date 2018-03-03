@@ -19,9 +19,10 @@ namespace SecuViewer
         {
             int overhead = 0;
             var builder = new StringBuilder();
+            var readerLength = reader.Length;
             using (var breader = new BinaryReader(reader, Encoding.Default, true))
             {
-                while (builder.Length < (reader.Length - overhead * 2) / 8 && reader.Length > reader.Position + 8)
+                while (builder.Length < (readerLength - overhead * 2) / 8 && readerLength > reader.Position + 8)
                 {
                     char x = default(char);
                     for (int j = 0; j < 4; j++)
@@ -30,12 +31,12 @@ namespace SecuViewer
                         var y = (char)(z ^ data.Next());
                         x |= y;
                     }
-                    if (x % 3 == 0 && reader.Length > reader.Position + 2)
+                    if (x % 3 == 0 && readerLength > reader.Position + 2)
                     {
                         breader.ReadInt16();
                         overhead++;
                     }
-                    if (x % 2 == 0 && reader.Length > reader.Position + 2)
+                    if (x % 2 == 0 && readerLength > reader.Position + 2)
                     {
                         breader.ReadInt16();
                         overhead++;

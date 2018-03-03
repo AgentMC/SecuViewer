@@ -120,17 +120,17 @@
   <data name="AboutText" xml:space="preserve">
     <value>Secure file viewer/editor. (c) AgentMC, 2015-2018.</value>
   </data>
-  <data name="AboutTitle" xml:space="preserve">
-    <value>About SecuView</value>
-  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>SecuView</value>
+  </data>
+  <data name="DoYouWantToSaveDox" xml:space="preserve">
+    <value>The document was modified. Save it?</value>
   </data>
   <data name="DecryptError" xml:space="preserve">
     <value>Decrypt command requires valid file as next argument. Example:
 sv.exe /decrypt C:\\abcde.etx</value>
   </data>
-  <data name="DoYouWantToSaveDox" xml:space="preserve">
-    <value>The document was modified. Save it?</value>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About SecuView</value>
   </data>
 </root>

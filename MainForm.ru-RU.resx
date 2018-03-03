@@ -118,30 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Файл</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 20</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Правка</value>
-  </data>
-  <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 20</value>
-  </data>
-  <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Настройки</value>
-  </data>
-  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 20</value>
-  </data>
-  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Справка</value>
-  </data>
   <data name="newToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -157,7 +133,7 @@
     <value>328, 22</value>
   </data>
   <data name="newToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Создать</value>
+    <value>Созда&amp;ть</value>
   </data>
   <data name="openToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -181,11 +157,60 @@
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Открыть зашифрованное...</value>
   </data>
+  <data name="loadFromToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////////
+        ////////////////////////////////////////////////////////////////////////////////
+        t6KTY0k1Y0k1Y0k1Y0k1Y0k1Y0k1Y0k1////////////////////////////////t6KT9d7T18jA1MO6
+        0L20zLiuybSoY0k1////////////////////////////////t6KT9+Tb6ptz6pVr6pBi6opazbmvY0k1
+        ////////////////////////////////u6aX+eni+OXd9uLY9d/T9NvO0sC2Y0k1////////////////
+        ////////jEQh9vHu18i/+u/q6ptz6pVr6pBi6opa18e+Y0k1////////////////////8enlkkcjjEQh
+        9O/r/PTw+/Ds+u3n+Orj9+bd3M7GY0k1////////////////6NPJuV0vumY7olQtj0Yj89zQ9tXE7qmH
+        6pBi6opa4dTOZEo2////////////69jOwm9E8auF/Zdg139QtWE2j0Yj+Ozl/Pf1/PTx+/Hs5dvWY0k1
+        ////////////66mI9rON0HZH9LGN/Zdg1XlK+/Dr//39/vz5/fn2/PXz+/LvZEo2////////////54tf
+        14hi4ce61HxN3Idb9O3n6NvS1L+u2MKy2MKy2MKy2MKy1L+u////////////2ohh68Ov/fn355px+eTZ
+        ////////////////////////////////////////////2ohh8efi////////////////////////////
+        ////////////////////////////05uA8efi////////////////////////////////////////////
+        ////////////8efiz4tq////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////
+</value>
+  </data>
   <data name="loadFromToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>328, 22</value>
   </data>
   <data name="loadFromToolStripMenuItem.Text" xml:space="preserve">
-    <value>Загрузить простой текст...</value>
+    <value>Загрузить &amp;простой текст...</value>
+  </data>
+  <data name="launchCrackerToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAABIpJREFUWEfF
+        l3tQlFUYxhchuRQIMmAIYmoNxIIJjMKyKyggELOwu0jLStLOADu4iI2VlwEWYnBGlByDCehiVhSONF4o
+        UQhB4halkzgMyAAiJqRJGV4odhcWnt7z1R9N/1Asuz0zvz/Ou+fd83zfOfu+Z3lGypJYTCziRubQ0bQo
+        t4LkMNU7GZEVNZq4yzX5cTdKMkIvyCN9i4T+/I00xZowjSHJ5pDoTwuVXd21ZRgZrAV+qsf06Hlg6HOg
+        vwSXKrY+Tty8rpamLiee4JIWSpJw4ZbzFa+OYLYfDwaq8V6u7FGAq+WAtz2vN8jFauCIhD+ur9NA36JC
+        vMirmVJWEWx7jJcqUez+wd74TujbcGG/yLDajjfkbMk7abOIt48+lhMJxG7xGrsrE6fUGK2Kn3l2xdL3
+        KcbehBVhnIQBfNH19hLt3aoMPGPH66FQDpFIBBGrCTfCg9h0QLxyEE3pyJbz79E4llhCWBDzV7IkJAd3
+        juE1kZuOhu8SMsKLcCDYXrMF2MGzU0sFHz/8KHb2anHYjOvSJaUUY1th3FvYo4o+jh4NJN72P9OQPb2Q
+        cCWeIp78G7ZvpMRk9x0VTN4r2wQPV8cvKBZI2BHz1570LZXo3ImmAsHk6eIszMWd40GGkcNB8HBxrKd0
+        9tNk2zB/JYvXH0FHFnQnhED3PuDROUDXAmibgYlGGhPj9FO8fRC4psDUKSGu5vjAxcnhDKWHEcYZCPTx
+        lA9WpUxrz76IiZMboauLgb5RDH2zBFPNcdA2iDHbp8JMXyqmvpcDNcGoTF81SamHiGDCnn2PMXJ4MyXw
+        a+2XiXh8JgoPq8Oha46Hrk0GXTtBJnRkAkOZQGscfijxRQTfsZfy0ggfglVHo2TpZG8tbi8VP5i6vAMT
+        9VJaVAZDz8sw9KbA0JUEQ4cU+rMR+LXUH4UJK8Yp5y0ihniaWJDSbOvqZJtZXSwbmx0uooVVwIgaGE4F
+        BlKgbUtCV9465MevvE9zywlWoLxZHrEgYk/haGFhkbBdGvAthrKAW7uAG2Rk+BWMXUrC69HLb9OcgwRb
+        3I9gdcK4IvQPMRPsS70bVM/Rwmo6dNvx2zcKnD4UMRPBX8YakYLgE+zgmaQrsiey4Qz0KvFZViC+yl2P
+        /S89f5fiakJAGF9+5xJnoD8VH2YGAe1yaBR+oxTeRrDeYHwDmkucgZs7UJYm4AzkKV5gBlhXZI3J9OIM
+        3FKjXBXy/xmYvqbEJ7tEfxlYa34Dk61yMrCBM5Cv8PuRwmZ+A61bUUkGmt+OQcxaxzoKxxHLuAmmFncG
+        vpOjJjuY6r8czg7WeRQ2vvX+W3EGrihwLjcUhsZEFG7zu0lhdkVjlxTTixn4vUGGhjwhGotCZ0Q+bk0U
+        DiecuAmmFjOga5HjoiYEFw8LdDaLrQ5QmF0+HLkJpha3Bd1KdGg2QNuqxN7YNey2bN4twPU/DdyvEKJA
+        6v0LhaMIZ26CqVWe4JnCTIyfEKBK5QtJgHsnhaUEu4CYRfaaSLfdx5ReY4Wx7qwK7iRCCfOcARLr9ezE
+        +xOsAEUSnsR/+FPK4/0BtLw+4KC6w1oAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="launchCrackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>328, 22</value>
+  </data>
+  <data name="launchCrackerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Запустить &amp;Взломщика...</value>
   </data>
   <data name="toolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 6</value>
@@ -212,6 +237,22 @@
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Сохранить зашифрованное...</value>
   </data>
+  <data name="saveAsToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJTSURBVDhPpZPdT1JxHMb5C9q66Ka7ti5a97VokW+UaFhk
+        UVlZzoNYaM4GbRZNHQhbs2AptrA3MRjDF2xQGAiESjOTDcXTZqFszpwrHKFrMyv2xPmJmZHe9GzPzsXz
+        fT6/tx3Wf8s2MIG/bfXSsDiDMNqHiVOj/xZT2EgPO33Ymy/aHNLz6l1qPF0tRidcr+nNIZ19Y6nxdDW3
+        95LyqlOV9TI7AmQ4kUhgdDwEyXUZhEoK7pFBfIkvEsgqKFVZr6e2NwQwGYmAqi9D94wPivA4TMYpGAwf
+        0KqfgK6Zxu3GUSgVAchvDEEq9aNS4oNY5AHrsXWQAOR1CrydptH2yQheb4yUvZ7kMZq+kXxVi1+XUUIN
+        IyurDkVnnoHVavGSgLpcDXsoBvYsha0DDXiQXNn58gfUqijJGTHlyGwcgnP9KL5gXgHcM7lI2Ki5i0zd
+        FLa4NNhm3w5dEw2bbQky6XuSk/LHOEboObCPvcCVaj9OCTvAYi6IUXR+HlU3NdhVb8TOoi5y5o7OOKTX
+        QmTLgrP92Jcs7sixYDevC6ViNwqPt68BGEWj83j0xIBLFVVoUAZgaP+M+/oZ3NGGoVDRqJGPoPKqH6Xl
+        bpwufo4Cvn49YPn7T8QWljA9t0BumylrtJPILCj57cMnRMRHT3aDl6tdAzDfP808lSa1MlM8T0lgsjow
+        FBwDT1gO7hEzcrJVK4A9eVSaKyp8UKrHwb/YhwO5haipVSNIh9Hj6AUnOw8crgEHOfKN/xFxmYc8E2Oh
+        0AKBoA38/BYc4t5CRkYt9rNlScvwC7o4XvzFsR6/AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>328, 22</value>
   </data>
@@ -226,6 +267,12 @@
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>В&amp;ыход</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Файл</value>
   </data>
   <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>190, 22</value>
@@ -306,6 +353,12 @@
   <data name="selectAllToolStripMenuItem.Text" xml:space="preserve">
     <value>Выделить в&amp;сё</value>
   </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 20</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Правка</value>
+  </data>
   <data name="chooseFontToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 22</value>
   </data>
@@ -318,11 +371,23 @@
   <data name="wrapLinesToolStripMenuItem.Text" xml:space="preserve">
     <value>Переносить строки</value>
   </data>
+  <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Настройки</value>
+  </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 22</value>
   </data>
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;О программе...</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 20</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Справка</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

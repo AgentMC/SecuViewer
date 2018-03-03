@@ -8,7 +8,7 @@ namespace SecuViewer
     {
         internal static string Decrypt(Password psw, string path)
         {
-            var data = new CryptoData(psw);
+            var data = new CryptoData(psw.textBox1.Text);
             using (var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return Decrypt(data, reader);
@@ -19,9 +19,9 @@ namespace SecuViewer
         {
             int overhead = 0;
             var builder = new StringBuilder();
-            using (var breader = new BinaryReader(reader, Encoding.Default))
+            using (var breader = new BinaryReader(reader, Encoding.Default, true))
             {
-                while (builder.Length < (reader.Length - overhead * 2) / 8)
+                while (builder.Length < (reader.Length - overhead * 2) / 8 && reader.Length > reader.Position + 8)
                 {
                     char x = default(char);
                     for (int j = 0; j < 4; j++)
@@ -30,12 +30,12 @@ namespace SecuViewer
                         var y = (char)(z ^ data.Next());
                         x |= y;
                     }
-                    if (x % 3 == 0)
+                    if (x % 3 == 0 && reader.Length > reader.Position + 2)
                     {
                         breader.ReadInt16();
                         overhead++;
                     }
-                    if (x % 2 == 0)
+                    if (x % 2 == 0 && reader.Length > reader.Position + 2)
                     {
                         breader.ReadInt16();
                         overhead++;
@@ -48,7 +48,7 @@ namespace SecuViewer
 
         internal static void Encrypt(Password psw, string what, string where)
         {
-            var data = new CryptoData(psw);
+            var data = new CryptoData(psw.textBox1.Text);
             using (var writer = new FileStream(where, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             {
                 Encrypt(data, what, writer);
@@ -89,10 +89,10 @@ namespace SecuViewer
             private readonly int[] _vocabulary;
             private int _ptr;
 
-            public CryptoData(Password psw)
+            public CryptoData(string source)
             {
                 //1. Get voco srting
-                var voco = GetInitialVoco(psw.textBox1.Text);
+                var voco = GetInitialVoco(source);
                 //2. Get GlobalHash
                 var globalHash = voco.GetHashCode() & 0xFFFF;
                 //3. Build hashed array

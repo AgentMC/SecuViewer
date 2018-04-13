@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using SecuViewer.Cryption;
 
 namespace SecuViewer
 {
@@ -96,7 +97,7 @@ namespace SecuViewer
         private bool TestPassword(string psw)
         {
             _ms.Position = 0;
-            var response = Crypter.Decrypt(new Crypter.CryptoData(psw), _ms);
+            var response = Crypter.Decrypt(new CryptoData(psw), _ms);
             return response.Contains("parter");
         }
 

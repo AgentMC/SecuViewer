@@ -53,7 +53,10 @@
     <Compile Include="Cracker.Designer.cs">
       <DependentUpon>Cracker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Crypter.cs" />
+    <Compile Include="Cryption\Crypter.cs" />
+    <Compile Include="Cryption\CryptoData.cs" />
+    <Compile Include="Cryption\ICryptor.cs" />
+    <Compile Include="Cryption\LegacyCryptor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Cryption\Crypter.cs" />
     <Compile Include="Cryption\CryptoData.cs" />
+    <Compile Include="Cryption\CryptorV1.cs" />
     <Compile Include="Cryption\ICryptor.cs" />
     <Compile Include="Cryption\LegacyCryptor.cs" />
     <Compile Include="MainForm.cs">

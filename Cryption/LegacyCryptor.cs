@@ -6,14 +6,16 @@ namespace SecuViewer.Cryption
 {
     internal class LegacyCryptor : ICryptor
     {
+        internal static readonly LegacyCryptor Singleton = new LegacyCryptor();
+
         public string Decrypt(CryptoData data, Stream reader)
         {
             int overhead = 0;
             var builder = new StringBuilder();
-            var readerLength = reader.Length;
+            long readerLength = reader.Length, streamLength = readerLength - reader.Position;
             using (var breader = new BinaryReader(reader, Encoding.Default, true))
             {
-                while (builder.Length < (readerLength - overhead*2)/8 && readerLength > reader.Position + 8)
+                while (builder.Length < (streamLength - overhead*2)/8 && readerLength >= reader.Position + 8)
                 {
                     char x = default(char);
                     for (int j = 0; j < 4; j++)
@@ -22,12 +24,12 @@ namespace SecuViewer.Cryption
                         var y = (char) (z ^ data.Next());
                         x |= y;
                     }
-                    if (x%3 == 0 && readerLength > reader.Position + 2)
+                    if (x%3 == 0 && readerLength >= reader.Position + 2)
                     {
                         breader.ReadInt16();
                         overhead++;
                     }
-                    if (x%2 == 0 && readerLength > reader.Position + 2)
+                    if (x%2 == 0 && readerLength >= reader.Position + 2)
                     {
                         breader.ReadInt16();
                         overhead++;
@@ -41,6 +43,7 @@ namespace SecuViewer.Cryption
         public void Encrypt(CryptoData data, string what, Stream writer)
         {
             int overhead = 0;
+            long padding = writer.Position;
             var rnd = new Random();
             using (var briter = new BinaryWriter(writer, Encoding.Default, true))
             {
@@ -63,7 +66,7 @@ namespace SecuViewer.Cryption
                     }
                 }
             }
-            writer.SetLength(what.Length*8 + overhead*2);
+            writer.SetLength(padding + what.Length*8 + overhead*2);
         }
 
         public bool CanDecrypt(Stream reader)

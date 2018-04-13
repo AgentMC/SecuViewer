@@ -38,7 +38,8 @@ namespace SecuViewer.Cryption
 
         private static readonly ICryptor[] Cryptors =
         {
-            new LegacyCryptor()
+            new CryptorV1(), 
+            LegacyCryptor.Singleton
         };
     }
 }

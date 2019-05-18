@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText" xml:space="preserve">
-    <value>Безопасный просмотрщик/редактор файлов. (c) AgentMC, 2015-2018.</value>
+    <value>Безопасный просмотрщик/редактор файлов. (c) AgentMC, 2015-2019.</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>Про SecuView</value>

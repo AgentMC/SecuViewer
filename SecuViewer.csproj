@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecuViewer</RootNamespace>
     <AssemblyName>SecuViewer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,11 +54,6 @@
     <Compile Include="Cracker.Designer.cs">
       <DependentUpon>Cracker.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cryption\Crypter.cs" />
-    <Compile Include="Cryption\CryptoData.cs" />
-    <Compile Include="Cryption\CryptorV1.cs" />
-    <Compile Include="Cryption\ICryptor.cs" />
-    <Compile Include="Cryption\LegacyCryptor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +118,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SecuViewer.Cryption\SecuViewer.Cryption.csproj">
+      <Project>{d18c5341-72c7-411b-bbe0-26d5619d6d6c}</Project>
+      <Name>SecuViewer.Cryption</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cryption\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

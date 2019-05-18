@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SecuViewer.Cryption;
+using System;
 using System.Windows.Forms;
 
 namespace SecuViewer
 {
-    public partial class Password : Form
+    public partial class Password : Form, IPasswordProvider
     {
         public Password()
         {
@@ -11,6 +12,8 @@ namespace SecuViewer
         }
 
         private bool _showConfirmBox;
+
+        public string RawPassword => textBox1.Text;
 
         public DialogResult ShowDialog(bool showConfirmBox, IWin32Window owner)
         {
@@ -58,7 +61,7 @@ namespace SecuViewer
             timer1.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             timer1.Stop();
             CancelButtn.Focus();

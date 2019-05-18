@@ -23,14 +23,14 @@ namespace SecuViewer
         private int[] _indices;
         private int _pointer;
         private StringBuilder _sb;
-        private ManualResetEventSlim _synch = new ManualResetEventSlim(true);
+        private readonly ManualResetEventSlim _synch = new ManualResetEventSlim(true);
 
         public Cracker()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             _dic = textBox2.Text;
             _chars = (int) numericUpDown1.Value;
@@ -97,11 +97,11 @@ namespace SecuViewer
         private bool TestPassword(string psw)
         {
             _ms.Position = 0;
-            var response = Crypter.Decrypt(new CryptoData(psw), _ms);
+            var response = Crypter.Decrypt(VocabularyProviderFactory.CreateProvider(psw), _ms);
             return response.Contains("parter");
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             if(!_run) return;
             progressBar1.Value = (int) (_done/_maxFactor);
@@ -146,7 +146,7 @@ namespace SecuViewer
             return units.ToString("F") + " " + suffix;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             _synch.Wait();
             _run = false;
@@ -154,7 +154,7 @@ namespace SecuViewer
 
         private void Cracker_FormClosed(object sender, FormClosedEventArgs e)
         {
-            button2_Click(sender, e);
+            Button2_Click(sender, e);
         }
     }
 }

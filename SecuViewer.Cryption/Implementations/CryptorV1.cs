@@ -2,29 +2,29 @@
 using System.IO;
 using System.Linq;
 
-namespace SecuViewer.Cryption
+namespace SecuViewer.Cryption.Implementations
 {
     internal class CryptorV1 : ICryptor
     {
-        private readonly byte[] _magic = {(byte) 'S', (byte) 'F', (byte) 'V', (byte) '1'};
+        private readonly byte[] _magic = { (byte)'S', (byte)'F', (byte)'V', (byte)'1' };
 
-        public string Decrypt(CryptoData data, Stream reader)
+        public string Decrypt(IVocabularyProvider data, Stream reader)
         {
             var offset = (reader.ReadByte() ^ data.Next()) & 0xFF;
             reader.Position = offset;
-            for (int i = 0; i < ((offset - (_magic.Length + 1)) & 0xF); i++)
+            for (int i = 0; i < (offset - (_magic.Length + 1) & 0xF); i++)
             {
                 data.Next();
             }
             return LegacyCryptor.Singleton.Decrypt(data, reader);
         }
 
-        public void Encrypt(CryptoData data, string what, Stream writer)
+        public void Encrypt(IVocabularyProvider data, string what, Stream writer)
         {
             writer.Write(_magic, 0, _magic.Length);
             var rnd = new Random();
             var garbageCount = rnd.Next(10, 250);
-            var totalPadding = (byte) (((garbageCount + _magic.Length + 1) ^ data.Next()) & 0xFF);
+            var totalPadding = (byte)((garbageCount + _magic.Length + 1 ^ data.Next()) & 0xFF);
             var buffer = new byte[garbageCount + 1];
             rnd.NextBytes(buffer);
             buffer[0] = totalPadding;

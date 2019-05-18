@@ -1,19 +1,20 @@
-﻿using System.IO;
+﻿using SecuViewer.Cryption.Implementations;
+using System.IO;
 
 namespace SecuViewer.Cryption
 {
-    internal static class Crypter
+    public static class Crypter
     {
-        internal static string Decrypt(Password psw, string path)
+        public static string Decrypt(IPasswordProvider psw, string path)
         {
-            var data = new CryptoData(psw.textBox1.Text);
+            var data = new CryptoData(psw.RawPassword);
             using (var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return Decrypt(data, reader);
             }
         }
 
-        internal static string Decrypt(CryptoData data, Stream reader)
+        public static string Decrypt(IVocabularyProvider data, Stream reader)
         {
             foreach (var cryptor in Cryptors)
             {
@@ -22,16 +23,16 @@ namespace SecuViewer.Cryption
             return null;
         }
 
-        internal static void Encrypt(Password psw, string what, string where)
+        public static void Encrypt(IPasswordProvider psw, string what, string where)
         {
-            var data = new CryptoData(psw.textBox1.Text);
+            var data = new CryptoData(psw.RawPassword);
             using (var writer = new FileStream(where, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             {
                 Encrypt(data, what, writer);
             }   
         }
 
-        internal static void Encrypt(CryptoData data, string what, Stream writer)
+        public static void Encrypt(IVocabularyProvider data, string what, Stream writer)
         {
             Cryptors[0].Encrypt(data, what, writer);
         }

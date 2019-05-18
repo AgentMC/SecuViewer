@@ -1,8 +1,8 @@
 using System.Text;
 
-namespace SecuViewer.Cryption
+namespace SecuViewer.Cryption.Implementations
 {
-    internal struct CryptoData
+    internal struct CryptoData : IVocabularyProvider
     {
         private readonly int _vocabularyLength;
         private readonly int[] _vocabulary;
@@ -34,7 +34,7 @@ namespace SecuViewer.Cryption
             {
                 foreach (var t in source)
                 {
-                    builder.Append((char) (t ^ (0x579D579D >> k++) ^ sourceHash));
+                    builder.Append((char)(t ^ 0x579D579D >> k++ ^ sourceHash));
                     if (k == 16) k = 0;
                 }
             }

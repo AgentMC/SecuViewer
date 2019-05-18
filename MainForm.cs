@@ -24,27 +24,27 @@ namespace SecuViewer
 
         #region Standard edit
 
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UndoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Undo();
         }
 
-        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Cut();
         }
 
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Copy();
         }
 
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.Paste();
         }
 
-        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SelectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textBox1.SelectAll();
         }
@@ -53,7 +53,7 @@ namespace SecuViewer
 
         #region Options
 
-        private void chooseFontToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChooseFontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fontDialog.Font = textBox1.Font;
             if (fontDialog.ShowDialog() != DialogResult.OK)
@@ -63,7 +63,7 @@ namespace SecuViewer
             Properties.Settings.Default.Save();
         }
 
-        private void wrapLinesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        private void WrapLinesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             textBox1.WordWrap = wrapLinesToolStripMenuItem.Checked;
             Properties.Settings.Default.WrapLines = wrapLinesToolStripMenuItem.Checked;
@@ -75,17 +75,17 @@ namespace SecuViewer
         private string _lastPath;
         private bool _saveNeeded;
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (QuerySaveIfNeeded()) textBox1.Clear();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (QuerySaveIfNeeded()) Close();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(Properties.Resources.AboutText, Properties.Resources.AboutTitle);
         }
@@ -95,7 +95,7 @@ namespace SecuViewer
             return QuerySaveIfNeeded() && Ofd.ShowDialog(this) == DialogResult.OK;
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (LoadPrologue()) LoadEncrypted(Ofd.FileName);
         }
@@ -111,7 +111,7 @@ namespace SecuViewer
             _saveNeeded = false;
         }
 
-        private void loadFromToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadFromToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!LoadPrologue())
                 return;
@@ -122,12 +122,12 @@ namespace SecuViewer
             _lastPath = Ofd.FileName;
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveConditional();
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveAs();
         }
@@ -165,7 +165,7 @@ namespace SecuViewer
             return true;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void TextBox1_TextChanged(object sender, EventArgs e)
         {
             _saveNeeded = textBox1.TextLength != 0;
         }
@@ -218,7 +218,7 @@ namespace SecuViewer
             Decrypt
         }
 
-        private void launchCrackerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LaunchCrackerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Cracker().Show();
         }

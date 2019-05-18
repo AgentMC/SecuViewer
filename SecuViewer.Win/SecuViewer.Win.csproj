@@ -120,7 +120,7 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="SecuViewer.Cryption\SecuViewer.Cryption.csproj">
+    <ProjectReference Include="..\SecuViewer.Cryption\SecuViewer.Cryption.csproj">
       <Project>{d18c5341-72c7-411b-bbe0-26d5619d6d6c}</Project>
       <Name>SecuViewer.Cryption</Name>
     </ProjectReference>

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuViewer.Cryption", "Secu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuViewer.Win", "SecuViewer.Win\SecuViewer.Win.csproj", "{C78AF2CD-A506-4360-8525-88982965390C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuViewer.Droid", "SecuViewer.Droid\SecuViewer.Droid.csproj", "{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{C78AF2CD-A506-4360-8525-88982965390C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C78AF2CD-A506-4360-8525-88982965390C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C78AF2CD-A506-4360-8525-88982965390C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{024C8027-EDA3-4F5C-8DA1-E2144E25E16C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

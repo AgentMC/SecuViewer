@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:id="@+id/SettingsGrid">
+        <RadioButton
+            android:text="Decrypt"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/DecryptRB"
+            android:layout_columnSpan="3"
+            android:checked="true"/>
+        <TextView
+            android:minWidth="@dimen/abc_dialog_padding_material"
+            android:layout_column="0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password:"
+            android:layout_column="1"/>
+        <EditText
+            android:layout_column="2"
+            android:inputType="textPassword"
+            android:id="@+id/PasswordBox"
+            android:layout_gravity="start|end|fill_horizontal"/>
+        <RadioButton
+            android:text="Open as plain text file"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/LoadPlainRB"
+            android:layout_columnSpan="3"/>
+        <Button
+            android:text="Open file"
+            android:id="@+id/OpenFile"
+            android:layout_column="2"
+            android:layout_gravity="end"
+            android:enabled="false"/>
+    </GridLayout>
+    <EditText
+        android:text="Text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/ContentViewer"
+        android:layout_margin="@dimen/mtrl_btn_text_size"
+        android:gravity="top"
+        android:visibility="invisible"/>
+
+</LinearLayout>

@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">SecuViewer</string>
+  <string name="action_settings">Settings</string>
+  <string name="launch_screen_descr">This application allows to access SFV-encrypted files. Please select an SFV-encrypted text file using a file manager and open it with or share it to SecuViewer.</string>
+</resources>

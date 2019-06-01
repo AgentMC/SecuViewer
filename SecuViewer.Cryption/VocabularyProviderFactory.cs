@@ -6,7 +6,7 @@ namespace SecuViewer.Cryption
     {
         public static IVocabularyProvider CreateProvider(string password)
         {
-            return new CryptoData(password);
+            return new CryptoDataV2(password);
         }
     }
 }

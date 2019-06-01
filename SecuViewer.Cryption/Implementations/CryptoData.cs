@@ -2,18 +2,23 @@ using System.Text;
 
 namespace SecuViewer.Cryption.Implementations
 {
-    internal struct CryptoData : IVocabularyProvider
+    internal class CryptoData : IVocabularyProvider
     {
-        private readonly int _vocabularyLength;
-        private readonly int[] _vocabulary;
+        private int _vocabularyLength;
+        private int[] _vocabulary;
         private int _ptr;
 
         public CryptoData(string source)
         {
+            Initialize(source);
+        }
+
+        protected void Initialize(string source)
+        {
             //1. Get voco srting
             var voco = GetInitialVoco(source);
             //2. Get GlobalHash
-            var globalHash = voco.GetHashCode() & 0xFFFF;
+            var globalHash = Hash(voco) & 0xFFFF;
             //3. Build hashed array
             _vocabularyLength = voco.Length;
             _vocabulary = new int[_vocabularyLength];
@@ -25,11 +30,11 @@ namespace SecuViewer.Cryption.Implementations
             _ptr = 0;
         }
 
-        private static string GetInitialVoco(string source)
+        private string GetInitialVoco(string source)
         {
             const int multiplier = 5;
             var builder = new StringBuilder(source.Length * multiplier);
-            int k = 0, sourceHash = source.GetHashCode();
+            int k = 0, sourceHash = Hash(source);
             for (int j = 0; j < multiplier; j++)
             {
                 foreach (var t in source)
@@ -40,6 +45,11 @@ namespace SecuViewer.Cryption.Implementations
             }
             var voco = builder.ToString();
             return voco;
+        }
+
+        protected virtual int Hash(string input)
+        {
+            return input.GetHashCode();
         }
 
         public int Next()

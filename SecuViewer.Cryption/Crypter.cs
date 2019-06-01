@@ -7,7 +7,7 @@ namespace SecuViewer.Cryption
     {
         public static string Decrypt(IPasswordProvider psw, string path)
         {
-            var data = new CryptoData(psw.RawPassword);
+            var data = VocabularyProviderFactory.CreateProvider(psw.RawPassword);
             using (var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return Decrypt(data, reader);
@@ -25,7 +25,7 @@ namespace SecuViewer.Cryption
 
         public static void Encrypt(IPasswordProvider psw, string what, string where)
         {
-            var data = new CryptoData(psw.RawPassword);
+            var data = VocabularyProviderFactory.CreateProvider(psw.RawPassword);
             using (var writer = new FileStream(where, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             {
                 Encrypt(data, what, writer);
@@ -39,6 +39,7 @@ namespace SecuViewer.Cryption
 
         private static readonly ICryptor[] Cryptors =
         {
+            new CryptorV2(),
             new CryptorV1(), 
             LegacyCryptor.Singleton
         };

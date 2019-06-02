@@ -50,6 +50,7 @@ namespace SecuViewer.Droid
 
             System.Diagnostics.Debug.WriteLine(Intent.ToString());
             ContentReference = ParseIntent();
+            CheckContentReference();
         }
 
         private Android.Net.Uri ParseIntent()
@@ -111,16 +112,7 @@ namespace SecuViewer.Droid
 
         private void OpenFile_Click(object sender, EventArgs e)
         {
-            if(ContentReference == null)
-            {
-                Snackbar.Make(SettingsGrid, "Null Content Reference received!", Snackbar.LengthShort).Show();
-                return;
-            }
-            if(ContentReference.Scheme.ToLower().StartsWith("http"))
-            {
-                Snackbar.Make(SettingsGrid, "Content Reference points to web! Open file in 1Drive and then click [->] button.", Snackbar.LengthLong).Show();
-                return;
-            }
+            if (!CheckContentReference()) return;
             if (CheckSelfPermission(Manifest.Permission.ReadExternalStorage) != Permission.Granted)
             {
                 RequestPermissions(new[] { Manifest.Permission.ReadExternalStorage }, 0);
@@ -129,6 +121,21 @@ namespace SecuViewer.Droid
             {
                 LoadFile();
             }
+        }
+
+        private bool CheckContentReference()
+        {
+            if (ContentReference == null)
+            {
+                Snackbar.Make(SettingsGrid, "Null Content Reference received!", Snackbar.LengthShort).Show();
+                return false;
+            }
+            if (ContentReference.Scheme.ToLower().StartsWith("http"))
+            {
+                Snackbar.Make(SettingsGrid, "Content Reference points to web! Open file in 1Drive and then click [->] button.", Snackbar.LengthLong).Show();
+                return false;
+            }
+            return true;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

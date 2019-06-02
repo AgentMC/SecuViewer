@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Android;
 using Android.App;
@@ -8,6 +9,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -47,7 +49,40 @@ namespace SecuViewer.Droid
             OpenFile.Click += OpenFile_Click;
 
             System.Diagnostics.Debug.WriteLine(Intent.ToString());
-            ContentReference = (Android.Net.Uri)(Intent.Data ?? Intent.GetParcelableExtra(Intent.ExtraStream));
+            ContentReference = ParseIntent();
+        }
+
+        private Android.Net.Uri ParseIntent()
+        {
+            if(Intent != null)
+            {
+                if(Intent.Data != null)
+                {
+                    return Intent.Data;
+                }
+                if(Intent.ClipData != null)
+                {
+                    if(Intent.ClipData.ItemCount > 0)
+                    {
+                        var clip = Intent.ClipData.GetItemAt(0);
+                        if (clip != null && clip.Uri != null) return clip.Uri;
+                    }
+                }
+                if(Intent.Extras != null)
+                {
+                    var keyset = Intent.Extras.KeySet().ToArray();
+                    if(keyset.Length > 0)
+                    {
+                        if (Intent.GetParcelableExtra(keyset[0]) is Android.Net.Uri extraUri) return extraUri;
+                        var extraString = Intent.GetStringExtra(keyset[0]);
+                        if (!string.IsNullOrEmpty(extraString))
+                        {
+                            return Android.Net.Uri.Parse(extraString);
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         private void LoadPlainRadioButton_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
@@ -76,6 +111,16 @@ namespace SecuViewer.Droid
 
         private void OpenFile_Click(object sender, EventArgs e)
         {
+            if(ContentReference == null)
+            {
+                Snackbar.Make(SettingsGrid, "Null Content Reference received!", Snackbar.LengthShort).Show();
+                return;
+            }
+            if(ContentReference.Scheme.ToLower().StartsWith("http"))
+            {
+                Snackbar.Make(SettingsGrid, "Content Reference points to web! Open file in 1Drive and then click [->] button.", Snackbar.LengthLong).Show();
+                return;
+            }
             if (CheckSelfPermission(Manifest.Permission.ReadExternalStorage) != Permission.Granted)
             {
                 RequestPermissions(new[] { Manifest.Permission.ReadExternalStorage }, 0);

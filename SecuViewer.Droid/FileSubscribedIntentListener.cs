@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using SecuViewer.Cryption;
@@ -18,7 +19,7 @@ namespace SecuViewer.Droid
     [IntentFilter(new[] { Intent.ActionSend, Intent.ActionOpenDocument, Intent.ActionView },
                   Categories = new[] { Intent.CategoryDefault },
                   DataMimeType = "text/plain")]
-    public class FileSubscribedIntentListener : Activity
+    public class FileSubscribedIntentListener : AppCompatActivity
     {
         GridLayout SettingsGrid = null;
         RadioButton DecryptRadioButton = null, LoadPlainRadioButton = null;
@@ -45,6 +46,7 @@ namespace SecuViewer.Droid
             PasswordBox.TextChanged += PasswordBox_TextChanged;
             OpenFile.Click += OpenFile_Click;
 
+            System.Diagnostics.Debug.WriteLine(Intent.ToString());
             ContentReference = (Android.Net.Uri)(Intent.Data ?? Intent.GetParcelableExtra(Intent.ExtraStream));
         }
 
@@ -74,12 +76,31 @@ namespace SecuViewer.Droid
 
         private void OpenFile_Click(object sender, EventArgs e)
         {
+            if (CheckSelfPermission(Manifest.Permission.ReadExternalStorage) != Permission.Granted)
+            {
+                RequestPermissions(new[] { Manifest.Permission.ReadExternalStorage }, 0);
+            }
+            else
+            {
+                LoadFile();
+            }
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (requestCode == 0 && grantResults.Length == 1 && grantResults[0] == Permission.Granted) LoadFile();
+        }
+
+        private void LoadFile()
+        {
             var stream = ContentResolver.OpenInputStream(ContentReference);
             if (DecryptRadioButton.Checked)
             {
                 const int MEGABYTE = 1024 * 1024;
                 var tempBuffers = new List<byte[]>();
-                int totalRead = 0, read = 0;
+                int totalRead = 0;
+                int read;
                 //read all into memory
                 do
                 {

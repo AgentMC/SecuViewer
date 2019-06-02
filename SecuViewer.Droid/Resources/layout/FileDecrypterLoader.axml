@@ -42,16 +42,26 @@
             android:layout_gravity="end"
             android:enabled="false"/>
     </GridLayout>
-    <EditText
-        android:text="Text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/ContentViewer"
-        android:layout_margin="@dimen/mtrl_btn_text_size"
-        android:gravity="top"
-        android:visibility="invisible"/>
-
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:text="Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/ContentViewer"
+                android:padding="20dp"
+                android:gravity="top|left"
+                android:visibility="invisible"
+                android:fontFamily="monospace"
+                android:textIsSelectable="true"
+                android:editable="false" />
+        </HorizontalScrollView>
+    </ScrollView>
 </LinearLayout>

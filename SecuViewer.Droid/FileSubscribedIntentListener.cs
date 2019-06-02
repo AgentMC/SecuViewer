@@ -85,7 +85,7 @@ namespace SecuViewer.Droid
                 {
                     var tempBuffer = new byte[MEGABYTE];
                     read = stream.Read(tempBuffer, 0, MEGABYTE);
-                    if(read > 0)
+                    if (read > 0)
                     {
                         totalRead += read;
                         tempBuffers.Add(tempBuffer);
@@ -97,16 +97,43 @@ namespace SecuViewer.Droid
                 {
                     Array.Copy(tempBuffers[i], 0, buffer, i * MEGABYTE, i == tempBuffers.Count - 1 ? totalRead % MEGABYTE : MEGABYTE);
                 }
+                //decrypt
+                string decoded;
                 using (var wrapper = new MemoryStream(buffer))
                 {
-                    ContentViewer.Text = Crypter.Decrypt(VocabularyProviderFactory.CreateProvider(PasswordBox.Text), wrapper);
+                    decoded = Crypter.Decrypt(VocabularyProviderFactory.CreateProvider(PasswordBox.Text), wrapper);
                 }
+                //replace tabs with tab stops
+                var builder = new StringBuilder();
+                int counter = 0;
+                for (int i = 0; i < decoded.Length; i++)
+                {
+                    switch (decoded[i])
+                    {
+                        case '\r':
+                        case '\n':
+                            counter = 0;
+                            builder.Append(decoded[i]);
+                            break;
+                        case '\t':
+                            var delta = 8 - (counter % 8);
+                            counter += delta;
+                            builder.Append(' ', delta);
+                            break;
+                        default:
+                            counter++;
+                            builder.Append(decoded[i]);
+                            break;
+                    }
+                }
+                //set content
+                ContentViewer.Text = builder.ToString();
             }
             else
             {
                 using (var istr = new StreamReader(stream))
                 {
-                    ContentViewer.Text = istr.ReadToEnd(); ;
+                    ContentViewer.Text = istr.ReadToEnd();
                 }
             }
             SettingsGrid.Visibility = ViewStates.Gone;
